@@ -2,25 +2,29 @@ import React, { useContext } from "react";
 
 import "./Detail.scss";
 import Navbar from "../../Components/Navbar/Navbar";
-import Data from "../../data.json";
 import { Link, useParams } from "react-router-dom";
 import { ThemeContext } from "../../App";
 
 const Detail = () => {
   const { code } = useParams();
-  const { darkModeOn } = useContext(ThemeContext);
-  const CountryDetail = Data.find((country) => country.alpha3Code === code);
+  const { darkModeOn, data } = useContext(ThemeContext);
+  const CountryDetail = data.find((country) => country.cca3 === code);
 
   const getBorderCountry = (code) => {
-    const country = Data.find((country) => country.alpha3Code === code);
-    return country.name;
+    const country = data.find((country) => country.cca3 === code);
+    return country.name.common;
+  };
+
+  const getlanguages = () => {
+    const languages = Object.values(CountryDetail.languages);
+    return languages.map((language) => language);
   };
 
   return (
     <div>
       <Navbar />
       {CountryDetail && (
-        <div className={`detailScreen ${darkModeOn?'dark':''}`}>
+        <div className={`detailScreen ${darkModeOn ? "dark" : ""}`}>
           <Link to="/" className="back-button pill">
             <i className="fas fa-arrow-left"></i>
             <span>Back</span>
@@ -29,22 +33,28 @@ const Detail = () => {
             <div className="detail__flag">
               <img
                 style={
-                  CountryDetail.name === "Nepal"
+                  CountryDetail.name.common === "Nepal"
                     ? { border: 0 }
                     : { border: "1px solid #333" }
                 }
                 src={CountryDetail.flags.png}
-                alt={CountryDetail.name}
+                alt={CountryDetail.flags.alt}
               />
             </div>
             <div className="detail__info">
-              <h1 className="detail__info__name">{CountryDetail.name}</h1>
+              <h1 className="detail__info__name">
+                {CountryDetail.name.official}
+              </h1>
               <div className="detail__info__content">
                 <div className="detail__info__content__left">
-                  <p>
-                    <span className="title">Native Name:</span>{" "}
-                    {CountryDetail.nativeName}
-                  </p>
+                  {CountryDetail.name.nativeName && (
+                    <p>
+                      <span className="title">Native Name:</span>{" "}
+                      {Object.values(CountryDetail.name.nativeName).map(
+                        (nativeName) => nativeName.common
+                      )}
+                    </p>
+                  )}
                   <p>
                     <span className="title">Population:</span>{" "}
                     {CountryDetail.population}
@@ -57,39 +67,30 @@ const Detail = () => {
                     <span className="title">Sub Region:</span>{" "}
                     {CountryDetail.subregion}
                   </p>
-                  <p>
+                  {CountryDetail.cpaital && <p>
                     <span className="title">Capital:</span>{" "}
-                    {CountryDetail.capital}
-                  </p>
+                    {CountryDetail.capital.map((capital) => capital)}
+                  </p>}
                 </div>
                 <div className="detail__info__content__right">
                   <p>
                     <span className="title">Top Level Domain:</span>{" "}
-                    {CountryDetail.topLevelDomain}
+                    {CountryDetail.tld.map((tld) => tld + "\t")}
                   </p>
-                  <p>
+                  {CountryDetail.currencies && <p>
                     <span className="title">Currencies:</span>{" "}
-                    {CountryDetail.currencies.map(
-                      (currency) => currency.name + "(" + currency.symbol + ")"
+                    {Object.values(CountryDetail.currencies).map(
+                      (currency) => currency.name +`(${currency.symbol})`
                     )}
-                  </p>
-                  <p>
+                  </p>}  
+                  {CountryDetail.languages && <p>
                     <span className="title">Languages:</span>{" "}
                     <span className="borders__co">
-                      {CountryDetail.languages.map((language, index) => (
-                        <span
-                          style={{
-                            marginRight: "5px",
-                          }}
-                        >
-                          {language.name}
-                          {CountryDetail.languages.length > 1 &&
-                            index !== CountryDetail.languages.length - 1 &&
-                            ","}
-                        </span>
-                      ))}
+                      {Object.values(CountryDetail.languages).map(
+                        (language) => language + "\t"
+                      )}
                     </span>
-                  </p>
+                  </p>}
                 </div>
               </div>
               {CountryDetail.borders && (

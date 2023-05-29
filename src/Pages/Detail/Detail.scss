@@ -107,6 +107,7 @@
         .borders__title{
             display: flex;
             white-space: nowrap;
+            align-items: center;
 
             @media screen and (max-width: 768px) {
               flex-direction: column;
