@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Searchbar.scss'
+import { ThemeContext } from '../../App'
 
 const Searchbar = ({handleFilter, handleSearch, show, filter}) => {
+
+  const {darkModeOn} = useContext(ThemeContext);
+
   return (
-    <div className="search">
+    <div className={`search ${darkModeOn?'dark':''}`}>
         <form className="search__input" onSubmit={handleSearch}>
           <i className="fas fa-search"></i>
           <input type="text" id="name" placeholder="Search for a country..." />

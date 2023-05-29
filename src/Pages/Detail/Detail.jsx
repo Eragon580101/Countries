@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import "./Detail.scss";
 import Navbar from "../../Components/Navbar/Navbar";
 import Data from "../../data.json";
 import { Link, useParams } from "react-router-dom";
+import { ThemeContext } from "../../App";
 
 const Detail = () => {
   const { code } = useParams();
+  const { darkModeOn } = useContext(ThemeContext);
   const CountryDetail = Data.find((country) => country.alpha3Code === code);
 
   const getBorderCountry = (code) => {
@@ -18,7 +20,7 @@ const Detail = () => {
     <div>
       <Navbar />
       {CountryDetail && (
-        <div className="detailScreen">
+        <div className={`detailScreen ${darkModeOn?'dark':''}`}>
           <Link to="/" className="back-button pill">
             <i className="fas fa-arrow-left"></i>
             <span>Back</span>

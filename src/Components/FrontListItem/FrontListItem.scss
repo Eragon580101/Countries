@@ -2,16 +2,25 @@ $color-white: #fff;
 $color-box-shadow: rgba(0, 0, 0, 0.1);
 
 .front-list-item{
+    --color: #333;
+    --bg-color: #fff;
+
     width: min(20rem);
     height: fit-content;
-    background-color: $color-white;
+    background-color: var(--bg-color);
     border-radius: 0.5rem;
     box-shadow: 0 0.5rem 1rem $color-box-shadow;
     transition: all 0.3s ease-in-out;
     overflow: hidden;
     cursor: pointer;
     text-decoration: none;
-    color: #333;
+    color: var(--color);
+
+    &.dark{
+        --color: #f8ffff;
+        --bg-color: #2c3743;
+    }
+
     &__img{
         width: 20rem;
         img{

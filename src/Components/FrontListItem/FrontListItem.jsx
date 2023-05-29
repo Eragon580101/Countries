@@ -1,11 +1,15 @@
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 import './FrontListItem.scss';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../../App';
 
 
 const FrontListItem = forwardRef((props, ref) => {
+
+  const {darkModeOn} = useContext(ThemeContext);
+
   return (
-    <Link to={`/detail/${props.alpha3Code}`} className="front-list-item" ref={ref}>
+    <Link to={`/detail/${props.alpha3Code}`} className={`front-list-item ${darkModeOn?'dark':''}`} ref={ref}>
       <div className="front-list-item__img">
         <img src={props.image} alt="avatar"/>
       </div>

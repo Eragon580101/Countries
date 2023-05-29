@@ -1,4 +1,12 @@
 .detailScreen {
+  --color: #333; 
+  --bg-color: #fff;
+
+  &.dark{
+    --color: #f8ffff;
+    --bg-color: #2c3743;
+  }
+
   margin: 2rem 5rem;
 
   @media screen and (max-width: 768px) {
@@ -10,7 +18,7 @@
     align-items: center;
     gap: 1rem;
     cursor: pointer;
-    color: #333;
+    color: var(--color);
     transition: all 0.3s ease-in-out;
     width: 100px;
     height: 40px;
@@ -114,7 +122,7 @@
   padding: 0.5rem 1rem;
   border-radius: 5px;
   box-shadow: 0px 0px 1px 1px rgba(26, 26, 26, 0.33);
-  background-color: #fff;
+  background-color: var(--bg-color);
 }
 
 .title {
