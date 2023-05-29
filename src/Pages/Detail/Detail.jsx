@@ -51,7 +51,7 @@ const Detail = () => {
                     <p>
                       <span className="title">Native Name:</span>{" "}
                       {Object.values(CountryDetail.name.nativeName).map(
-                        (nativeName) => nativeName.common
+                        (nativeName) => nativeName.common + "\t"
                       )}
                     </p>
                   )}
