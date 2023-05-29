@@ -1,0 +1,44 @@
+$color-white: #fff;
+$color-box-shadow: rgba(0, 0, 0, 0.1);
+
+.front-list-item{
+    width: min(20rem);
+    height: fit-content;
+    background-color: $color-white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem $color-box-shadow;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    &__img{
+        width: 20rem;
+        img{
+            width: 100%;
+            object-position: center;
+        }
+    }
+
+    &__description{
+        padding-left: 2rem;
+        padding-bottom:2rem ;
+        &__title{
+            width: min(19rem,100%);
+            margin-block: 1rem;
+            h3{
+                font-weight:900;
+            }
+        }
+
+        &__info{
+            p{
+                font-weight: bolder;
+                span{
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+
+}
